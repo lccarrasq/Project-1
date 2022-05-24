@@ -1,2 +1,2 @@
-# ELK-Stack-Project
-ELK Stack Project Week
+# Project 1  
+Project 1
