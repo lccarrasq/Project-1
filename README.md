@@ -62,7 +62,8 @@ What was its IP address?
 
 10.0.0.4 (Private)
 A summary of the access policies in place can be found in the table below.
-Name	Publicly Accessible	Allowed IP Addresses
+
+Name  Public  Publicly Accessible	Allowed IP Addresses
 Jump-Box-Provisioner	Yes	20.40.83.184
 ELK-VM	  10.1.0.4
 web-1    	10.0.0.5
@@ -82,7 +83,7 @@ It is also able to automate complex multi-tier IT application environemtns.
 
 In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
 
-First I, SSH into the Jump-Box-Provisioner (ssh redadmin@40.117.224.154)
+First I, SSH into the Jump-Box-Provisioner (ssh azadmin@40.117.224.154)
 Start/Attached to the ansible docker (sudo docker start tender_morse)/(sudo docker attach tender_morse)
 Went to /etc/ansible/roles directory and created the ELK playbook (Elk_Playbook.yml)
 Ran the Elk_Playbook.yml in that same directory (ansible-playbook Elk_Playbook.yml)
@@ -159,10 +160,10 @@ As a Bonus, provide the specific commands the user will need to run to download 
        tasks:
 
 	   - name: download filebeat deb
-  	     command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.4-amd64.deb
+  	     command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
 
 	   - name: install filebeat deb
-  	     command: dpkg -i filebeat-7.6.4-amd64.deb
+  	     command: dpkg -i filebeat-7.6.1-amd64.deb
 
 	   - name: drop in filebeat.yml
   	     copy:
@@ -190,21 +191,24 @@ As a Bonus, provide the specific commands the user will need to run to download 
 - To create the playbool: nano metricbeat-playbook.yml
 
 ---
-  - name: installing and lunching metricbeat
+  - name: install metricbeat
     hosts: webservers
     become: true
+    become_user: root
     tasks:
     
-  - name: download metricbeat deb
-    command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.4-amd64.deb
+  - name: download metricbeat .deb file
+    command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.1-amd64.deb
     
   - name: install metricbeat deb
-    command: sudo dpkg -i metricbeat-7.6.4-amd64.deb
+    command: sudo dpkg -i metricbeat-7.6.1-amd64.deb
     
   - name: drop in metricbeat.yml
     copy:
-      src: /etc/ansible/roles/files/metricbeat-configuration.yml
+      src: /etc/ansible/metricbeat-configuration.yml
       dest: /etc/metricbeat/metricbeat.yml
+      remote_src: no
+      force: yes
       
    - name: enable and configure system module
      command: metricbeat modules enable system
@@ -215,6 +219,11 @@ As a Bonus, provide the specific commands the user will need to run to download 
    - name: start metricbeat service
      command: service metricbeat start
      
+   - name: Enable service metricbeat on boot
+      systemd:
+         name: metricbeat
+         enabled: yes
+
    ---
    
    - To run the playbook: ansible-playbook metricbeat-playbook.yml
