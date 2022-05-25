@@ -62,7 +62,7 @@ Access to this machine is only allowed from the following IP addresses:
 Which machine did you allow to access your ELK VM?
 
 Jump-Box-Provisioner
-What was its IP address?
+What was its IP address?  20.40.83.184
 
 10.0.0.4 (Private)
 A summary of the access policies in place can be found in the table below.
@@ -87,7 +87,7 @@ It is also able to automate complex multi-tier IT application environemtns.
 
 In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
 
-First I, SSH into the Jump-Box-Provisioner (ssh azadmin@40.117.224.154)
+First I, SSH into the Jump-Box-Provisioner (ssh azadmin@20.40.83.184)
 Start/Attached to the ansible docker (sudo docker start tender_morse)/(sudo docker attach tender_morse)
 Went to /etc/ansible/roles directory and created the ELK playbook (Elk_Playbook.yml)
 Ran the Elk_Playbook.yml in that same directory (ansible-playbook Elk_Playbook.yml)
