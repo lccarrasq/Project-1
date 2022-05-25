@@ -102,8 +102,8 @@ Target Machines & Beats
 
 List the IP addresses of the machines you are monitoring
 
-NewVM-1 (10.0.0.5)
-NewVM-2 (10.0.0.6)
+web-1 (10.0.0.5)
+web-2 (10.0.0.6)
 We have installed the following Beats on these machines:
 
 Filebeat Module Status Screenshot
