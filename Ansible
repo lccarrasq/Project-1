@@ -1,1 +1,8 @@
 
+/etc/ansible/metricbeat-playbook.yml
+
+/etc/ansible/filebeat-playbook.yml.yml
+
+/etc/ansible/listplaybook.yml
+
+/etc/ansible/docker-compse.yml
